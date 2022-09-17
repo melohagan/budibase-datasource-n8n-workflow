@@ -1,5 +1,11 @@
 # N8n-workflow-datasource
-This is a readme for your new Budibase plugin.
+Budibase datasource plugin for n8n workflows
+
+ - Create workflow
+ - Read workflow (all or by id)
+ - Update workflow
+ - Delete workflow
+ - Activate workflow (or deactivate)
 
 # Description
 CRUD operations for n8n Workflows
