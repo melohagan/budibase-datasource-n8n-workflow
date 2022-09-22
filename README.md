@@ -1,4 +1,5 @@
-# N8n-workflow-datasource
+# N8n Workflows
+
 Budibase datasource plugin for n8n workflows
 
  - Create workflow
