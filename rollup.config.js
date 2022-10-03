@@ -9,6 +9,13 @@ import fs from "fs"
 import pkg from "./package.json"
 import crypto from "crypto"
 
+const iconFile = "icon.svg"
+const iconExists = fs.existsSync(iconFile)
+const assets = ["schema.json", "package.json"]
+if (iconExists) {
+  assets.push(iconFile)
+}
+
 // Custom plugin to clean the dist folder before building
 const clean = () => ({
   buildStart() {
@@ -50,12 +57,8 @@ const bundle = () => ({
   async writeBundle() {
     const bundleName = `${pkg.name}-${pkg.version}.tar.gz`
     return tar
-        .c({ gzip: true, cwd: "dist" }, [
-          "plugin.min.js",
-          "schema.json",
-          "package.json",
-        ])
-        .pipe(fs.createWriteStream(`dist/${bundleName}`))
+      .c({ gzip: true, cwd: "dist" }, [...assets, "plugin.min.js"])
+      .pipe(fs.createWriteStream(`dist/${bundleName}`))
   },
 })
 
@@ -95,9 +98,9 @@ export default {
     json(),
     terser(),
     copy({
-      assets: ["schema.json", "package.json"],
+      assets,
     }),
     hash(),
-    bundle()
+    bundle(),
   ],
 }
